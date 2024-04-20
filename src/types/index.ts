@@ -1,12 +1,18 @@
 import {z} from 'zod'
 
+const taskStatusSchema = z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed'])
+export const taskStatus = ['pending', 'onHold', 'inProgress', 'underReview', 'completed']
+
+
 // Tasks schemas and types
-const taskSchema = z.object({
+export const taskSchema = z.object({
   _id: z.string(),
   name: z.string(),
   description: z.string(),
   project: z.string(),
-  status: z.enum(['pending', 'onHold', 'inProgress', 'underReview', 'completed'])
+  status: taskStatusSchema,
+  createdAt: z.string(),
+  updatedAt: z.string(),
 })
 
 export type Task = z.infer<typeof taskSchema>
@@ -27,6 +33,7 @@ export const dashboardProjectSchema = z.array(
     projectName: true,
     clientName: true,
     description: true,
+    tasks: true,
   })
 )
 
