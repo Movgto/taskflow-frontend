@@ -13,7 +13,7 @@ type TaskGroupDict = {
   }
 }
 
-const taskGroupDict : TaskGroupDict = {
+export const taskGroupDict : TaskGroupDict = {
   pending: {
     title: 'Pending',
     color: 'text-slate-500'
