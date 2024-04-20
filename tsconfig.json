@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -14,6 +15,7 @@
       "@/api/*": ["api/*"],
       "@/lib/*": ["lib/*"],
       "@/hooks/*": ["hooks/*"],
+      "@/helpers/*": ["helpers/*"]
     },
 
     /* Bundler mode */
