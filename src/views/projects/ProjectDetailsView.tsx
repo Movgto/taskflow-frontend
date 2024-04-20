@@ -1,9 +1,11 @@
 import { getProjectById } from "@/api/projectAPI"
 import Loading from "@/components/Loading"
 import AddTaskModal from "@/components/tasks/AddTaskModal"
+import EditTaskData from "@/components/tasks/EditTaskData"
+import TaskDetailsModal from "@/components/tasks/TaskDetailsModal"
 import TaskList from "@/components/tasks/TaskList"
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate, useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 
 const ProjectDetailsView = () => {
   const params = useParams()
@@ -16,7 +18,7 @@ const ProjectDetailsView = () => {
 
   console.log(data, isError, isLoading)
 
-  if (isError) return 'An error ocurred'
+  if (isError) return <Navigate to="/404" />
   if (isLoading) return <Loading message="Tasks" />
   if (data) return (
     <>
@@ -35,6 +37,8 @@ const ProjectDetailsView = () => {
       </nav>
       <TaskList tasks={data.tasks} />
       <AddTaskModal />
+      <EditTaskData />
+      <TaskDetailsModal />
     </>
   )
 }
