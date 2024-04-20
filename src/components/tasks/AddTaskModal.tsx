@@ -21,8 +21,8 @@ const AddTaskModal = () => {
     description: '',
   }
 
-  const {register, handleSubmit, formState: {errors}} = useForm({
-    defaultValues: initialValues
+  const {register, handleSubmit, formState: {errors}, reset} = useForm({
+    defaultValues: initialValues,
   })
 
   const queryClient = useQueryClient()
@@ -35,6 +35,7 @@ const AddTaskModal = () => {
         toast.error(error.message)
     },
     onSuccess: (data) => {
+        reset()    
         queryClient.invalidateQueries({queryKey: ['editProject', id]})
         toast.success(data)
         navigate(location.pathname, {
@@ -101,7 +102,7 @@ const AddTaskModal = () => {
                                     <TaskForm errors={errors} register={register} />
                                     <input
                                         type="submit"
-                                        value="Create Project"
+                                        value="Create Task"
                                         className="w-full bg-purple-700 hover:bg-purple-500
                                                     transition-colors cursor-pointer text-white
                                                     uppercase font-bold p-2 rounded-md"
