@@ -39,3 +39,14 @@ export const dashboardProjectSchema = z.array(
 
 export type Project = z.infer<typeof projectSchema>
 export type ProjectFormData = Pick<Project, 'projectName' | 'clientName' | 'description'>
+
+export const userSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  confirmed: z.boolean()
+})
+
+export type User = z.infer<typeof userSchema>
+export type LoginFormData = Pick<User, 'email'|'password'>
