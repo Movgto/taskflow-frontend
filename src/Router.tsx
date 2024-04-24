@@ -7,6 +7,7 @@ import NotFound from '@/views/NotFound'
 import ProjectDetailsView from '@/views/projects/ProjectDetailsView'
 import AuthLayout from './layouts/AuthLayout'
 import Login from './views/auth/Login'
+import SignUp from './views/auth/SignUp'
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         </Route>
         <Route element={<AuthLayout />}>
           <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
         </Route>
       </Routes>
     </BrowserRouter>
