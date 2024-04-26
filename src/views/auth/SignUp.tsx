@@ -1,5 +1,6 @@
 import { signUp } from "@/api/authAPI"
 import ErrorMessage from "@/components/ErrorMessage"
+import { emailPattern } from "@/helpers/index"
 import { SignUpFormData } from "@/types/index"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
@@ -51,7 +52,7 @@ const SignUp = () => {
           <input
             id="name"
             type="name"
-            placeholder="e.g example@example.com"
+            placeholder="e.g Robert, Elliot, Jazmin..."
             className="bg-slate-200 rounded-sm ring-1 ring-slate-500 p-1"
             {...register('name', {
               required: 'Name cannot be empty'                       
@@ -77,7 +78,7 @@ const SignUp = () => {
             {...register('email', {
               required: 'Email cannot be empty',
               pattern: {
-                value: /^[a-z0-9._-]+@[a-z0-9._-]+\.\w+$/i,
+                value: emailPattern,
                 message: 'Please enter a valid email'
               },            
             })}
@@ -98,6 +99,7 @@ const SignUp = () => {
             id="password"
             type="password"        
             className="bg-slate-200 rounded-sm ring-1 ring-slate-500 p-1"
+            placeholder="••••••••"
             {...register('password', {
               required: 'Password cannot be empty',
               validate: {
@@ -122,7 +124,8 @@ const SignUp = () => {
           </label>
           <input
             id="password_confirmation"
-            type="password"        
+            type="password"
+            placeholder="••••••••"     
             className="bg-slate-200 rounded-sm ring-1 ring-slate-500 p-1"
             {...register('password_confirmation', {
               required: 'Password confirmation cannot be empty',            
@@ -147,7 +150,7 @@ const SignUp = () => {
       </form>
 
       <Link
-        to='/login'
+        to='/auth/login'
         className="text-white text-center w-full underline"
       >You already have an account? Login here</Link>
     </>
