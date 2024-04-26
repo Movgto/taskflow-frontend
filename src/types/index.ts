@@ -53,3 +53,18 @@ export type Auth = z.infer<typeof authSchema>
 export type User = Pick<Auth, '_id'|'name'|'email'|'password'|'confirmed'>
 export type SignUpFormData = Pick<Auth, 'name'|'email'|'password'|'password_confirmation'>
 export type LoginFormData = Pick<User, 'email'|'password'>
+
+export type Token = {
+  token: string,
+  user: string
+}
+
+// Reset password types
+
+export type ForgotPasswordForm = Pick<Auth, 'email'>
+export type ValidateToken = Pick<Token, 'token'>
+export type ResetPasswordFormData = Pick<Auth, 'password'|'password_confirmation'>
+export type ResetPasswordRequest = {
+  formData: ResetPasswordFormData
+  token: Token['token']
+}
