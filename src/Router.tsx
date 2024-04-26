@@ -8,6 +8,9 @@ import ProjectDetailsView from '@/views/projects/ProjectDetailsView'
 import AuthLayout from './layouts/AuthLayout'
 import Login from './views/auth/Login'
 import SignUp from './views/auth/SignUp'
+import AccountConfirmation from './views/auth/AccountConfirmation'
+import ForgotPassword from './views/auth/ForgotPassword'
+import ResetPassword from './views/auth/ResetPassword'
 
 const Router = () => {
   return (
@@ -20,9 +23,12 @@ const Router = () => {
           <Route path='projects/:id' element={<ProjectDetailsView />} />
           <Route path='404' element={<NotFound />} />
         </Route>
-        <Route element={<AuthLayout />}>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
+        <Route element={<AuthLayout />} path='auth'>
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<SignUp />} />
+          <Route path='account-confirmation' element={<AccountConfirmation />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='reset-password' element={<ResetPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>
