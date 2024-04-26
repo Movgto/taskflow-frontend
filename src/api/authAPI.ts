@@ -8,6 +8,8 @@ export const loginAccount = async (formData : LoginFormData) => {
     const url = '/auth/login'
     const {data} = await api.post(url, formData)
 
+    localStorage.setItem('TASKFLOW_AUTH_TOKEN', data)
+
     return data
   } catch (error) {
     console.log(error)
