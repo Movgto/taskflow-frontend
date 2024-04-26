@@ -29,7 +29,7 @@ const DashboardView = () => {
 
       <ul role="list" className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg">
         {data.length ? data.map(project => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} key={project._id} />
         )) :
           (
             <li className="flex justify-center p-6">
