@@ -1,5 +1,6 @@
 import { loginAccount } from "@/api/authAPI"
 import ErrorMessage from "@/components/ErrorMessage"
+import { emailPattern } from "@/helpers/index"
 import { LoginFormData } from "@/types/index"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
@@ -28,7 +29,7 @@ const Login = () => {
   return (
     <>    
       <form
-        className="bg-white p-5 rounded-md shadow-2xl shadow-black flex flex-col gap-2"
+        className="bg-white p-5 rounded-md shadow-2xl shadow-black flex flex-col gap-2 max-w-lg"
         noValidate
         onSubmit={handleSubmit(handleForm)}
       >
@@ -52,7 +53,7 @@ const Login = () => {
             {...register('email', {
               required: 'Email cannot be empty',
               pattern: {
-                value: /^[a-z0-9._-]+@[a-z0-9._-]+\.\w+$/i,
+                value: emailPattern,
                 message: 'Please enter a valid email'
               },            
             })}
@@ -73,8 +74,9 @@ const Login = () => {
             id="password"
             type="password"        
             className="bg-slate-200 rounded-sm ring-1 ring-slate-500 p-1"
+            placeholder="••••••••"
             {...register('password', {
-              required: 'Password cannot be empty'           
+              required: 'Password cannot be empty',                       
             })}
           />
           {errors.password && (
@@ -88,10 +90,10 @@ const Login = () => {
         />
       </form>
 
-      <Link
-        to='/signup'
-        className="text-white text-center w-full underline"
-      >You don't have an account yet?</Link>
+      <nav className="flex flex-col gap-1 text-white text-center w-full underline">
+        <Link to='/auth/signup'>You don't have an account yet?</Link>
+        <Link to='/auth/forgot-password'>I can't remember my password</Link>
+      </nav>
     </>
   )
 }
