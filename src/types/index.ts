@@ -50,9 +50,16 @@ export const authSchema = z.object({
 })
 
 export type Auth = z.infer<typeof authSchema>
-export type User = Pick<Auth, '_id'|'name'|'email'|'password'|'confirmed'>
 export type SignUpFormData = Pick<Auth, 'name'|'email'|'password'|'password_confirmation'>
-export type LoginFormData = Pick<User, 'email'|'password'>
+export type LoginFormData = Pick<Auth, 'email'|'password'>
+
+export const userSchema = authSchema.pick({
+  _id: true,
+  name: true,
+  email: true
+})
+
+export type User = z.infer<typeof userSchema>
 
 export type Token = {
   token: string,
