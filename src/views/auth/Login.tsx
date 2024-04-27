@@ -4,7 +4,7 @@ import { emailPattern } from "@/helpers/index"
 import { LoginFormData } from "@/types/index"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 const initialValues : LoginFormData = {
@@ -13,12 +13,17 @@ const initialValues : LoginFormData = {
 }
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
   const {handleSubmit, register, formState: {errors}} = useForm({defaultValues: initialValues})
 
   const { mutate, isError, error } = useMutation({
     mutationFn: loginAccount,
-    onSuccess: (data) => {
-      toast.success(data)
+    onSuccess: () => {
+      console.log('Logging successfully')
+      toast.success('Logging in...')
+      navigate('/')
     }
   })
 
