@@ -1,10 +1,19 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import Header from '@/views/Header'
 import Footer from '@/views/Footer'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
+import useAuth from '@/hooks/auth/useAuth'
 
 const AppLayout = () => {
+  const {isError, isLoading, error} = useAuth()
+
+  if (isLoading) return 'Loading...'
+  if (isError) {
+    console.log('An error happened while authentication...')
+    console.log(error)
+    return <Navigate to='/auth/login' />
+  }
   return (
     <>
       <Header />
