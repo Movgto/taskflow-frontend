@@ -1,5 +1,5 @@
 import { isAxiosError } from "axios";
-import { ForgotPasswordForm, LoginFormData, ResetPasswordRequest, SignUpFormData, Token, ValidateToken } from "../types";
+import { ForgotPasswordForm, LoginFormData, ResetPasswordRequest, SignUpFormData, Token, ValidateToken, userSchema } from "../types";
 import api from "@/lib/axios";
 
 
@@ -79,6 +79,26 @@ export const resetPassword = async ({formData, token}: ResetPasswordRequest) => 
     const {data} = await api.post(url, formData)
 
     return data
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
+export const getUser = async () => {
+  try {
+    const {data} = await api('/auth/user')
+
+    const result = userSchema.safeParse(data)
+
+    console.log('Authenticating user')
+    console.log(result)
+
+    if (result.success) {
+      console.log('Success!')
+      return result.data
+    }    
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error)
