@@ -1,4 +1,4 @@
-import { Project } from "@/types/index"
+import { DashboardProject, User } from "@/types/index"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
@@ -8,10 +8,11 @@ import { deleteProject } from "@/api/projectAPI"
 import { toast } from "react-toastify"
 
 type ProjectCardsProps = {
-  project: Project
+  project: DashboardProject
+  user: User
 }
 
-const ProjectCard = ({project} : ProjectCardsProps) => {
+const ProjectCard = ({project, user} : ProjectCardsProps) => {
 
     const navigate = useNavigate()
 
@@ -34,9 +35,27 @@ const ProjectCard = ({project} : ProjectCardsProps) => {
     }
 
     return (
-        <li key={project._id} className="flex justify-between gap-x-6 px-5 py-10">
-            <div className="flex min-w-0 gap-x-4">
-                <div className="min-w-0 flex-auto space-y-2">
+        <li key={project._id} className="flex justify-between gap-x-6 px-5 py-10 relative">
+            <div className="flex flex-col gap-4">
+                    <div
+                        className="absolute origin-top-left left-0 top-0 p-2"
+                    >
+                        {project.manager === user._id ?
+                            (<p
+                                className="font-bold text-xs text-lime-600 uppercase
+                                bg-lime-100 border-2 border-lime-600 py-1 px-4 rounded-md"
+                            >
+                                Manager
+                            </p>) :
+                            (<p
+                                className="font-bold text-xs text-cyan-600 uppercase
+                                bg-cyan-100 border-2 border-cyan-600 py-1 px-4 rounded-md"
+                            >
+                                Collaborator
+                            </p>)
+                        }
+                    </div>
+                    
                     <Link to={`/projects/${project._id}`}
                         className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                     >{project.projectName}</Link>
@@ -46,7 +65,7 @@ const ProjectCard = ({project} : ProjectCardsProps) => {
                     <p className="text-sm text-gray-400">
                         {project.description}
                     </p>
-                </div>
+                
             </div>
             <div className="flex shrink-0 items-center gap-x-6">
                 <Menu as="div" className="relative flex-none">
@@ -67,21 +86,26 @@ const ProjectCard = ({project} : ProjectCardsProps) => {
                                     See Project
                                     </Link>
                                 </Menu.Item>
-                                <Menu.Item>
-                                    <Link to={`/projects/${project._id}/edit`}
-                                        className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                    Edit Project
-                                    </Link>
-                                </Menu.Item>
-                                <Menu.Item>
-                                    <button 
-                                        type='button' 
-                                        className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                        onClick={() => handleDeleteProject() }
-                                    >
-                                        Delete Project
-                                    </button>
-                                </Menu.Item>
+                                {project.manager === user._id && (
+                                    <>
+                                        <Menu.Item>
+                                            <Link to={`/projects/${project._id}/edit`}
+                                                className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                            Edit Project
+                                            </Link>
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            <button 
+                                                type='button' 
+                                                className='block px-3 py-1 text-sm leading-6 text-red-500'
+                                                onClick={() => handleDeleteProject() }
+                                            >
+                                                Delete Project
+                                            </button>
+                                        </Menu.Item>
+                                    </>
+                                )}
+                                
                         </Menu.Items>
                     </Transition>
                 </Menu>
