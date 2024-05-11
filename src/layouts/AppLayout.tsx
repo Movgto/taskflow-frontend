@@ -8,7 +8,7 @@ import useAuth from '@/hooks/auth/useAuth'
 const AppLayout = () => {
   const {isError, isLoading, error} = useAuth()
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) return ''
   if (isError) {
     console.log('An error happened while authentication...')
     console.log(error)
