@@ -1,6 +1,12 @@
 import { Task } from "@/types/index"
 import useTasksGrouped from "@/hooks/tasks/useTasksGrouped"
 import TaskCard from "./TaskCard"
+import { useQuery } from "@tanstack/react-query"
+import { useParams } from "react-router-dom"
+import { getProjectById } from "@/api/projectAPI"
+import useAuth from "@/hooks/auth/useAuth"
+import Loading from "../Loading"
+import { useMemo } from "react"
 
 type TaskListProps = {
   tasks: Task[]
@@ -38,9 +44,23 @@ export const taskGroupDict : TaskGroupDict = {
 
 const TaskList = ({tasks} : TaskListProps) => {
   const groupedTasks = useTasksGrouped(tasks)
+  const params = useParams()
+  const projectId = params.id!
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['editProject', projectId],
+    queryFn: () => getProjectById(projectId)
+  })
+
+  const {data: user, isLoading: authLoading} = useAuth()
 
   console.log(groupedTasks)
-  return (
+
+  const canEdit = useMemo(() => data?.manager === user?._id, [data, user])
+
+  if (isLoading || authLoading) return <Loading message="Tasks" />
+
+  if (data && user) return (
     <>
       <h2 className="text-5xl font-black my-10">Tareas</h2>
 
@@ -54,7 +74,7 @@ const TaskList = ({tasks} : TaskListProps) => {
                       {tasks.length === 0 ? (
                           <li className="text-gray-500 text-center pt-3">No Tasks here</li>
                       ) : (
-                          tasks.map(task => <TaskCard key={task._id} task={task} />)
+                          tasks.map(task => <TaskCard key={task._id} task={task} canEdit={canEdit} />)
                       )}
                   </ul>
               </div>
