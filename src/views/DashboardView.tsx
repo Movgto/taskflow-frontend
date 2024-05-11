@@ -3,18 +3,26 @@ import { Link } from "react-router-dom"
 import { getProjects } from "../api/projectAPI"
 import ProjectCard from "@/components/projects/ProjectCard"
 import Loading from "@/components/Loading"
+import useAuth from "@/hooks/auth/useAuth"
+import { toast } from "react-toastify"
 
 const DashboardView = () => {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, error } = useQuery({
     queryKey: ['projects'],
     queryFn: getProjects,
   })
 
+  const {data : user, isLoading : authLoading} = useAuth()
+
   console.log(data, isError, isLoading)
 
-  if (isLoading) return <Loading message="Projects" />
+  if (isError) {
+    toast.error(error.message)
+  }
 
-  if (data) return (
+  if (isLoading || authLoading) return <Loading message="Projects" />
+
+  if (data && user) return (
     <>
       <h2 className="text-4xl font-bold text-gray-800 my-2">My Projects</h2>
       <p className="text-gray-600 my-2">Manage your Projects</p>
@@ -29,7 +37,7 @@ const DashboardView = () => {
 
       <ul role="list" className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg">
         {data.length ? data.map(project => (
-          <ProjectCard project={project} key={project._id} />
+          <ProjectCard project={project} key={project._id} user={user} />
         )) :
           (
             <li className="flex justify-center p-6">
