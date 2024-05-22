@@ -7,6 +7,8 @@ import { formatDateString } from '@/helpers/index';
 import { Task, taskStatus as taskStatusArray } from '@/types/index';
 import { taskGroupDict } from './TaskList';
 import { toast } from 'react-toastify';
+import ChangeHistory from './ChangeHistory';
+import NotesPanel from '../notes/NotesPanel';
 
 
 const TaskDetailsModal = () => {
@@ -81,7 +83,7 @@ const TaskDetailsModal = () => {
                       <div className="fixed inset-0 bg-black/60" />
                   </Transition.Child>
 
-                  <div className="fixed inset-0 overflow-y-auto">
+                  <div className="fixed overflow-y-auto inset-0">
                       <div className="flex min-h-full items-center justify-center p-4 text-center">
                           <Transition.Child
                               as={Fragment}
@@ -119,6 +121,8 @@ const TaskDetailsModal = () => {
                                       </select>
                                     </form>
                                   </div>
+                                  <ChangeHistory changeHistory={data.changeHistory} />
+                                  <NotesPanel />
                               </Dialog.Panel>
                           </Transition.Child>
                       </div>
