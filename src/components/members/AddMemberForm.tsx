@@ -14,10 +14,10 @@ const AddMemberForm = ({register, errors} : AddMemberFormProps) => {
       <div className="flex flex-col gap-5">
                 <label
                     className="font-normal text-2xl"
-                    htmlFor="name"
+                    htmlFor="email"
                 >New Member email</label>
                 <input
-                    id="name"
+                    id="email"
                     type="email"
                     placeholder="e.g example@example.com"
                     className="w-full p-3  border-gray-300 border"
