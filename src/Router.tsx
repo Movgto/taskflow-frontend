@@ -12,6 +12,9 @@ import AccountConfirmation from './views/auth/AccountConfirmation'
 import ForgotPassword from './views/auth/ForgotPassword'
 import ResetPassword from './views/auth/ResetPassword'
 import TeamMembers from './views/projects/TeamMembers'
+import ProfileLayout from './layouts/ProfileLayout'
+import ProfileView from './views/profile/ProfileView'
+import ChangePasswordView from './views/profile/ChangePasswordView'
 
 const Router = () => {
   return (
@@ -24,6 +27,10 @@ const Router = () => {
           <Route path='projects/:id' element={<ProjectDetailsView />} />
           <Route path='projects/:id/team' element={<TeamMembers />} />
           <Route path='404' element={<NotFound />} />
+          <Route element={<ProfileLayout/>}>
+            <Route path='profile' element={<ProfileView />} />
+            <Route path='profile/password' element={<ChangePasswordView />} />
+          </Route>
         </Route>
         <Route element={<AuthLayout />} path='auth'>
           <Route path='login' element={<Login />} />
