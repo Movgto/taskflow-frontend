@@ -69,6 +69,7 @@ export const updateProject = async ({ id, formData } : UpdateProjectProps) => {
 
 export const deleteProject = async (id: Project['_id']) => {
   try {
+    console.log("Project Id to delete", id)
     const { data } = await api.delete(`/projects/${id}`)
 
     return data
