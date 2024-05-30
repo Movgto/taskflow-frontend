@@ -69,7 +69,7 @@ const ResetPasswordForm = ({token} : ResetPasswordFormProps) => {
               required: 'Password cannot be empty',
               validate: {
                 minLength: value => {
-                  if (+value < 8) return 'Password must be at least 8 characters long'
+                  if (value.length < 8) return 'Password must be at least 8 characters long'
                 }
               }                       
             })}
