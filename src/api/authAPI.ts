@@ -1,5 +1,5 @@
 import { isAxiosError } from "axios";
-import { ForgotPasswordForm, LoginFormData, ResetPasswordRequest, SignUpFormData, Token, ValidateToken, userSchema } from "../types";
+import { ChangePasswordFormData, DeleteProjectFormData, ForgotPasswordForm, LoginFormData, ProfileFormData, ResetPasswordRequest, SignUpFormData, Token, ValidateToken, userSchema } from "../types";
 import api from "@/lib/axios";
 
 
@@ -99,6 +99,45 @@ export const getUser = async () => {
       console.log('Success!')
       return result.data
     }    
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
+export const updateProfile = async (formData: ProfileFormData) => {
+  try {
+    const url = `/auth/user/profile`
+    const {data} = await api.put(url, formData)
+
+    return data
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
+export const changePassword = async (formData: ChangePasswordFormData) => {
+  try {
+    const url = '/auth/user/change-password'
+    const {data} = await api.put(url, formData)
+
+    return data
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
+export const checkPassword = async (formData: DeleteProjectFormData) => {
+  try {
+    const url = '/auth/user/check-password'
+    const {data} = await api.post(url, formData)
+
+    return data
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error)
