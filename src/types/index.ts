@@ -15,6 +15,13 @@ export const authSchema = z.object({
 export type Auth = z.infer<typeof authSchema>
 export type SignUpFormData = Pick<Auth, 'name'|'email'|'password'|'password_confirmation'>
 export type LoginFormData = Pick<Auth, 'email'|'password'>
+export type ChangePasswordFormData = {
+  current_password: string
+  password: Auth['password_confirmation']
+  password_confirmation: Auth['password']
+}
+
+export type DeleteProjectFormData = Pick<Auth, 'password'>
 
 export const userSchema = authSchema.pick({
   _id: true,
@@ -23,6 +30,7 @@ export const userSchema = authSchema.pick({
 })
 
 export type User = z.infer<typeof userSchema>
+export type ProfileFormData = Pick<User, 'email'|'name'>
 
 export type Token = {
   token: string,
