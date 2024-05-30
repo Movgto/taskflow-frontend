@@ -5,6 +5,7 @@ import ProjectCard from "@/components/projects/ProjectCard"
 import Loading from "@/components/Loading"
 import useAuth from "@/hooks/auth/useAuth"
 import { toast } from "react-toastify"
+import DeleteProjectModal from "@/components/projects/DeleteProjectModal"
 
 const DashboardView = () => {
   const { data, isError, isLoading, error } = useQuery({
@@ -54,6 +55,7 @@ const DashboardView = () => {
           )
         }
       </ul>
+      <DeleteProjectModal />
     </>
   )
 }
