@@ -3,9 +3,6 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { Link, useNavigate } from "react-router-dom"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { deleteProject } from "@/api/projectAPI"
-import { toast } from "react-toastify"
 
 type ProjectCardsProps = {
   project: DashboardProject
@@ -16,22 +13,8 @@ const ProjectCard = ({project, user} : ProjectCardsProps) => {
 
     const navigate = useNavigate()
 
-    const queryClient = useQueryClient()
-
-    const mutation = useMutation({
-        mutationFn: deleteProject,
-        onError: (error) => {
-            toast.error(error.message)
-        },
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({queryKey: ['projects']})
-            toast.success(data)
-            navigate('/')
-        }
-    })
-
     const handleDeleteProject = () => {
-        mutation.mutate(project._id)
+        navigate(location.pathname + `?deleteProjectId=${project._id}`)
     }
 
     return (
