@@ -12,7 +12,7 @@ const ProjectForm = ({errors, register} : ProjectFormProps) => {
     <>
       <div className="mb-5 space-y-3">
           <label htmlFor="projectName" className="text-sm uppercase font-bold">
-              Nombre del Proyecto
+              Project name
           </label>
           <input
               id="projectName"
@@ -31,7 +31,7 @@ const ProjectForm = ({errors, register} : ProjectFormProps) => {
 
       <div className="mb-5 space-y-3">
           <label htmlFor="clientName" className="text-sm uppercase font-bold">
-              Nombre Cliente
+              Client name
           </label>
           <input
               id="clientName"
@@ -50,7 +50,7 @@ const ProjectForm = ({errors, register} : ProjectFormProps) => {
 
       <div className="mb-5 space-y-3">
           <label htmlFor="description" className="text-sm uppercase font-bold">
-              Descripción
+              Description
           </label>
           <textarea
               id="description"
