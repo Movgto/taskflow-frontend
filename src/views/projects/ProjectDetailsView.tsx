@@ -6,6 +6,7 @@ import TaskDetailsModal from "@/components/tasks/TaskDetailsModal"
 import TaskList from "@/components/tasks/TaskList"
 import { isManager } from "@/helpers/auth"
 import useAuth from "@/hooks/auth/useAuth"
+import { Task } from "@/types/index"
 import { useQuery } from "@tanstack/react-query"
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -55,7 +56,7 @@ const ProjectDetailsView = () => {
         </>
       )}
       
-      <TaskList tasks={data.tasks} />
+      <TaskList tasks={data.tasks as Task[]} />
       <AddTaskModal />
       <EditTaskData />
       <TaskDetailsModal />
