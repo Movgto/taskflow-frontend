@@ -74,6 +74,9 @@ export type TeamMemberFormData = {
   email: User['email']
 }
 
+export type TeamMember = User
+export type Team = z.infer<typeof teamSchema>
+
 export const projectSchema = z.object({
   _id: z.string(),
   projectName: z.string(),
