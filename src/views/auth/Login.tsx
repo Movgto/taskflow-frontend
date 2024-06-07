@@ -4,7 +4,7 @@ import { emailPattern } from "@/helpers/index"
 import { LoginFormData } from "@/types/index"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
 const initialValues : LoginFormData = {
