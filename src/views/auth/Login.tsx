@@ -1,6 +1,5 @@
 import { loginAccount } from "@/api/authAPI"
 import ErrorMessage from "@/components/ErrorMessage"
-import Loading from "@/components/Loading"
 import { emailPattern } from "@/helpers/index"
 import useAuth from "@/hooks/auth/useAuth"
 import { LoginFormData } from "@/types/index"
