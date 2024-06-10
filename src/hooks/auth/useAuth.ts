@@ -6,7 +6,7 @@ const useAuth = () => {
   const {data, isError, isLoading, error} = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
-    retry: 3,
+    retry: 1,
     refetchOnWindowFocus: false
   })
 
