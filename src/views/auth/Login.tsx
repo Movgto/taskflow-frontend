@@ -18,17 +18,17 @@ const Login = () => {
 
   const {handleSubmit, register, formState: {errors}} = useForm({defaultValues: initialValues})
 
-  const { mutate, isError, error } = useMutation({
+  const { mutateAsync, isError, error } = useMutation({
     mutationFn: loginAccount,
     onSuccess: () => {
       console.log('Logging successfully')
-      toast.success('Logging in...')
-      navigate('/')
+      toast.success('Logging in...')      
     }
   })
 
-  const handleForm = (data : LoginFormData) => {
-    mutate(data)
+  const handleForm = async (data : LoginFormData) => {
+    await mutateAsync(data)
+    navigate('/')
   }
 
   return (
