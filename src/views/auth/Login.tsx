@@ -1,5 +1,6 @@
 import { loginAccount } from "@/api/authAPI"
 import ErrorMessage from "@/components/ErrorMessage"
+import Loading from "@/components/Loading"
 import { emailPattern } from "@/helpers/index"
 import useAuth from "@/hooks/auth/useAuth"
 import { LoginFormData } from "@/types/index"
@@ -30,14 +31,16 @@ const Login = () => {
     }
   })
 
-  const {data} = useAuth()
+  const {data, isError: isAuthError, isLoading} = useAuth()
 
   const handleForm = async (data : LoginFormData) => {
     await mutateAsync(data)
     navigate('/')
   }
 
-  if (data) return <Navigate to='/' />
+  if (isLoading) return ''
+
+  if (data && !isAuthError) return <Navigate to='/' />
 
   return (
     <>    
